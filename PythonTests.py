@@ -53,3 +53,30 @@ jautajumi = [
         "atbilde": 2
     },
 ]
+def sakt_testu():
+    sakt_logs.destroy()
+    root.deiconify()
+    radit_jautajums()
+
+def iziet_program():
+    sakt_logs.destroy()
+
+root = tk.Tk()
+root.title("Tests: Sazarojuma konstrukcijas Python valodā")
+root.geometry("650x450")
+root.configure(bg="#e6ccff")
+
+sakt_logs = tk.Toplevel()
+sakt_logs.title("Sveicināts testā!")
+sakt_logs.geometry("400x200")
+sakt_logs.configure(bg="#e6ccff")
+
+sakuma_label = tk.Label(sakt_logs, text="Vai vēlies sākt testu?", font=("Arial", 14), bg="#e6ccff", fg="#4b0082")
+sakuma_label.pack(pady=30)
+
+sakt_Button = tk.Button(sakt_logs, text="Sākt testu", font=("Arial", 12), bg="lightgreen", command=sakt_testu)
+sakt_Button.pack(pady=5)
+
+iziet_Button = tk.Button(sakt_logs, text="Iziet", font=("Arial", 12), bg="lightcoral", command=iziet_program)
+iziet_Button.pack(pady=5)
+
