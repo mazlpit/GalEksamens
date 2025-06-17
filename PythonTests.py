@@ -54,6 +54,18 @@ jautajumi = [
     },
 ]
 
+pasreizejais_jautajums = 0
+lietotaja_atbildes = []
+
+def restartet_testu():
+    global pasreizejais_jautajums, lietotaja_atbildes
+    pasreizejais_jautajums = 0
+    lietotaja_atbildes = []
+    restartet_Button.pack_forget()
+    nakamais_Button.config(state="normal")
+    apstadinat_Button.config(state="normal")
+    radit_jautajums()
+
 def radit_jautajums():
     jautajums_label.config(text=jautajumi[pasreizejais_jautajums]["jautajums"])
     izveleta_opcija.set(-1)
@@ -92,6 +104,7 @@ def radit_rezultatus():
         rezultatus_text += "Nepareizie jautājumi un pareizās atbildes:\n"
         for q_text, pareizie_ans in nepareizie_jautajumi:
             rezultatus_text += f"- {q_text}\n  Pareizā atbilde: {pareizie_ans}\n"
+
     messagebox.showinfo("Rezultāts", rezultatus_text)
     nakamais_Button.config(state="disabled")
     apstadinat_Button.config(state="disabled")
@@ -109,6 +122,7 @@ root = tk.Tk()
 root.title("Tests: Sazarojuma konstrukcijas Python valodā")
 root.geometry("650x450")
 root.configure(bg="#e6ccff")
+root.withdraw()  
 
 sakt_logs = tk.Toplevel()
 sakt_logs.title("Sveicināts testā!")
@@ -144,3 +158,4 @@ apstadinat_Button = tk.Button(root, text="Beigt testu", command=apstadinat_testu
 apstadinat_Button.pack(pady=5)
 
 restartet_Button = tk.Button(root, text="Sākt no jauna", command=restartet_testu, font=("Arial", 12), bg="lightgreen")
+root.mainloop()
