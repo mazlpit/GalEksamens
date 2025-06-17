@@ -53,6 +53,26 @@ jautajumi = [
         "atbilde": 2
     },
 ]
+
+def radit_jautajums():
+    jautajums_label.config(text=jautajumi[pasreizejais_jautajums]["jautajums"])
+    izveleta_opcija.set(-1)
+    for i in range(4):
+        opcijas[i].config(text=jautajumi[pasreizejais_jautajums]["opcijas"][i])
+
+def nakamais_jautajums():
+    global pasreizejais_jautajums
+    izveleta = izveleta_opcija.get()
+    if izveleta == -1:
+        messagebox.showwarning("Uzmanību", "Lūdzu, izvēlies atbildi!")
+        return
+    lietotaja_atbildes.append(izveleta)
+    pasreizejais_jautajums += 1
+    if pasreizejais_jautajums == len(jautajumi):
+        radit_rezultatus()
+    else:
+        radit_jautajums()
+        
 def sakt_testu():
     sakt_logs.destroy()
     root.deiconify()
@@ -80,3 +100,23 @@ sakt_Button.pack(pady=5)
 iziet_Button = tk.Button(sakt_logs, text="Iziet", font=("Arial", 12), bg="lightcoral", command=iziet_program)
 iziet_Button.pack(pady=5)
 
+jautajums_label = tk.Label(root, text="", font=("Arial", 14), wraplength=600, justify="left", bg="#e6ccff", fg="#4b0082")
+jautajums_label.pack(pady=20)
+
+izveleta_opcija = tk.IntVar()
+opcijas = []
+for i in range(4):
+    rb = tk.Radiobutton(
+        root, text="", variable=izveleta_opcija, value=i, font=("Arial", 12),
+        bg="#e6ccff", fg="#000000", selectcolor="#d9b3ff", activebackground="#e6ccff"
+    )
+    rb.pack(anchor="w", padx=50)
+    opcijas.append(rb)
+
+    nakamais_Button = tk.Button(root, text="Nākamais", command=nakamais_jautajums, font=("Arial", 12), bg="lightblue")
+nakamais_Button.pack(pady=10)
+
+apstadinat_Button = tk.Button(root, text="Beigt testu", command=apstadinat_testu, font=("Arial", 12), bg="orange")
+apstadinat_Button.pack(pady=5)
+
+restartet_Button = tk.Button(root, text="Sākt no jauna", command=restartet_testu, font=("Arial", 12), bg="lightgreen")
