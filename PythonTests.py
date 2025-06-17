@@ -72,7 +72,31 @@ def nakamais_jautajums():
         radit_rezultatus()
     else:
         radit_jautajums()
-        
+
+def apstadinat_testu():
+    izveleta = izveleta_opcija.get()
+    if izveleta != -1:
+        lietotaja_atbildes.append(izveleta)
+    radit_rezultatus()
+
+def radit_rezultatus():
+    pareizie = 0
+    nepareizie_jautajumi = []
+    for i in range(len(lietotaja_atbildes)):
+        if lietotaja_atbildes[i] == jautajumi[i]["atbilde"]:
+            pareizie += 1
+        else:
+            nepareizie_jautajumi.append((jautajumi[i]["jautajums"], jautajumi[i]["opcijas"][jautajumi[i]["atbilde"]]))
+    rezultatus_text = f"Tu atbildēji pareizi uz {pareizie} no {len(lietotaja_atbildes)} jautājumiem.\n\n"
+    if nepareizie_jautajumi:
+        rezultatus_text += "Nepareizie jautājumi un pareizās atbildes:\n"
+        for q_text, pareizie_ans in nepareizie_jautajumi:
+            rezultatus_text += f"- {q_text}\n  Pareizā atbilde: {pareizie_ans}\n"
+    messagebox.showinfo("Rezultāts", rezultatus_text)
+    nakamais_Button.config(state="disabled")
+    apstadinat_Button.config(state="disabled")
+    restartet_Button.pack(pady=10)
+
 def sakt_testu():
     sakt_logs.destroy()
     root.deiconify()
